@@ -1,0 +1,20 @@
+{
+  "slug": "cci-admin-ui",
+  "kind": "library",
+  "sourceUrl": "https://github.com/cool-cat-ideas/cci-admin-ui",
+  "title": { "en": "CCI Admin UI", "pl": "CCI Admin UI" },
+  "description": {
+    "en": "Build consistent CCI administration screens with shared React controls, feedback and product panels.",
+    "pl": "Build consistent CCI administration screens with shared React controls, feedback and product panels."
+  },
+  "defaultVersion": "1.0.0",
+  "versions": [{ "version": "1.0.0", "label": "1.0.0" }],
+  "navigation": [
+    { "slug": "index", "title": { "en": "Choose an integration", "pl": "Choose an integration" } },
+    { "slug": "installation", "title": { "en": "Install and build", "pl": "Install and build" } },
+    { "slug": "forms-and-feedback", "title": { "en": "Forms and feedback", "pl": "Forms and feedback" } },
+    { "slug": "product-panels", "title": { "en": "License, version and news panels", "pl": "License, version and news panels" } },
+    { "slug": "api-clients", "title": { "en": "Connect a platform API", "pl": "Connect a platform API" } },
+    { "slug": "contributing", "title": { "en": "Contribute and release", "pl": "Contribute and release" } }
+  ]
+}

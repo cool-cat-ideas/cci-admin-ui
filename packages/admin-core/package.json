@@ -1,0 +1,19 @@
+{
+  "name": "@cci/admin-core",
+  "version": "1.0.0",
+  "description": "Shared admin data and API helpers for CCI products.",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "files": [
+    "src",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cool-cat-ideas/cci-admin-ui.git",
+    "directory": "packages/admin-core"
+  },
+  "homepage": "https://github.com/cool-cat-ideas/cci-admin-ui"
+}

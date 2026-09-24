@@ -1,0 +1,115 @@
+/* Shared admin controls. Legacy platform overrides live here once for all products. */
+.cci-admin-layout-shell,
+.cci-admin-layout-shell *,
+.cci-admin-layout-shell *::before,
+.cci-admin-layout-shell *::after {
+  box-sizing: border-box;
+}
+.cci-admin-layout-header h1 {
+  margin: 0;
+}
+
+.cci-admin-layout-shell a,
+.cci-admin-layout-shell a:hover,
+.cci-admin-layout-shell a:focus,
+.cci-admin-layout-shell a:active {
+  text-decoration: none !important;
+}
+
+.cci-admin-layout-shell button {
+  box-sizing: border-box;
+  margin: 0;
+  font: inherit;
+  text-transform: none;
+  vertical-align: middle;
+  background-image: none;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+.cci-admin-layout-shell button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+.cci-admin-layout-shell .tw-rounded,
+.cci-admin-layout-shell .tw-rounded-md,
+.cci-admin-layout-shell .tw-rounded-lg,
+.cci-admin-layout-shell .\!tw-rounded-md,
+.cci-admin-layout-shell [data-slot="button"],
+.cci-admin-layout-shell [data-slot="input"],
+.cci-admin-layout-shell [data-slot="select-trigger"],
+.cci-admin-layout-shell [data-slot="textarea"] {
+  border-radius: var(--cci-admin-radius) !important;
+}
+
+.cci-admin-layout-shell [data-slot="field-label"] {
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cci-admin-layout-shell [role="checkbox"],
+.cci-admin-layout-shell [role="radio"],
+.cci-admin-layout-shell input[type="checkbox"],
+.cci-admin-layout-shell input[type="radio"] {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.cci-admin-layout-shell [data-slot="tabs-trigger"][data-state="active"] {
+  border-color: var(--cci-admin-brand) !important;
+  background: transparent !important;
+  color: var(--cci-admin-brand-hover) !important;
+}
+
+.cci-admin-layout-shell [data-slot="tabs-trigger"]:hover {
+  background: #faf9ff !important;
+  color: var(--cci-admin-brand-hover) !important;
+}
+
+.cci-admin-layout-shell [role="checkbox"][data-state="checked"] {
+  border-color: var(--cci-admin-brand) !important;
+  background: var(--cci-admin-brand) !important;
+  color: #ffffff !important;
+}
+
+.cci-admin-layout-shell [role="checkbox"][data-state="unchecked"] {
+  border-color: #cbd5e1 !important;
+  background: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.cci-admin-layout-shell [data-checked="true"] {
+  border-color: var(--cci-admin-brand-border) !important;
+  background: var(--cci-admin-brand-soft) !important;
+}
+
+.cci-admin-layout-shell input[type="checkbox"],
+.cci-admin-layout-shell input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #dfe5ec;
+  border-radius: 4px;
+  background: #ffffff;
+  accent-color: var(--cci-admin-brand);
+}
+
+.cci-admin-layout-shell input[type="radio"] {
+  border-radius: 999px;
+}
+
+/* Keep native paragraph margins out of the shared News layout. */
+.cci-admin-layout-shell .cci-admin-product-news p { margin: 0; }
+.cci-admin-layout-shell .cci-admin-product-news p.tw-mt-1 { margin-top: 4px; }
+
+/* CardContent owns spacing, including native fieldsets in platform admin CSS. */
+.cci-admin-layout-shell [data-slot="card-content"] { padding: 1.25rem; }

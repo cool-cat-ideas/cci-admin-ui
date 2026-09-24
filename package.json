@@ -1,0 +1,27 @@
+{
+  "name": "cci-admin-ui",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Shared UI components and themes for Cool Cat Ideas products.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run build && node --test packages/*/tests/*.test.mjs",
+    "release": "node scripts/build-release.mjs"
+  },
+  "engines": {
+    "node": ">=23.7.0",
+    "npm": ">=11.7.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "homepage": "https://github.com/cool-cat-ideas/cci-admin-ui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cool-cat-ideas/cci-admin-ui.git"
+  }
+}

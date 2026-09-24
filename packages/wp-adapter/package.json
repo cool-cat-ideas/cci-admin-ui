@@ -1,0 +1,22 @@
+{
+  "name": "@cci/wp-adapter",
+  "version": "1.0.0",
+  "description": "WordPress admin adapter for CCI products.",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "files": [
+    "src",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cool-cat-ideas/cci-admin-ui.git",
+    "directory": "packages/wp-adapter"
+  },
+  "homepage": "https://github.com/cool-cat-ideas/cci-admin-ui",
+  "peerDependencies": {
+    "@cci/admin-core": "1.0.0"
+  }
+}

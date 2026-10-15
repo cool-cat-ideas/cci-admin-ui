@@ -8,6 +8,17 @@ All packages share the same release version. Planned work belongs in issues;
 
 No changes yet.
 
+## 1.0.1
+
+### Added
+
+- Shared layout builder controls for menu and form editors, including selectable items, drag grips and column width indicators.
+- Shared count badges and delete confirmation dialogs for product administration screens.
+
+### Fixed
+
+- Product status headings and descriptions keep consistent spacing and font weight when PrestaShop back-office styles are loaded.
+
 ## 1.0.0
 
 Initial public release.

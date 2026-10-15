@@ -1,15 +1,16 @@
 import React, { createContext, useContext, useId } from "react";
 import { useProductFeed, normalizeProductNews } from "./product-feed.js";
-import { Bell, ArrowUpRight, AlertCircle, RefreshCw } from "lucide-react";
+import { Bell, ArrowUpRight, RefreshCw } from "lucide-react";
 import { createCardComponents } from "./card.jsx";
 import { createLoadingState } from "./loading-state.jsx";
 import { createButton } from "./button.jsx";
-import { getFeedbackTone } from "./feedback-tone.js";
+import { createInfoCallout } from "./info-callout.jsx";
 /** One complete News view; platform adapters supply feed data and translations only. */
 
 const { Card, CardHeader } = createCardComponents();
 const LoadingState = createLoadingState();
 const Button = createButton();
+const InfoCallout = createInfoCallout();
 export function ProductNewsView({
   t,
   news = [],
@@ -138,31 +139,24 @@ function MarketplaceStatus({
       );
 
   return (
-    <div
-      data-cci-feedback="info"
-      className={`tw-grid tw-grid-cols-[auto_minmax(0,1fr)] tw-items-start tw-gap-3 tw-rounded-md tw-border tw-border-solid tw-p-3 ${getFeedbackTone("info").surface}`}
+    <InfoCallout
+      title={label || t("Store data is temporarily unavailable.")}
       role="status"
       aria-live="polite"
+      actions={onRefresh ? (
+        <Button className="tw-w-full" onClick={onRefresh} disabled={retrying}>
+          <RefreshCw aria-hidden="true" />
+          {t("Retry now")}
+        </Button>
+      ) : null}
     >
-      <AlertCircle className="tw-mt-0.5 tw-h-4 tw-w-4" aria-hidden="true" />
-      <div className="tw-min-w-0 tw-break-words">
-        <strong className="tw-text-sm tw-font-semibold">
-          {label || t("Store data is temporarily unavailable.")}
-        </strong>
-        <p className="tw-m-0 tw-mt-1 tw-text-sm tw-leading-6">{message}</p>
+        <p className="tw-m-0 tw-text-sm tw-leading-6">{message}</p>
         {showDetails && error && (
           <small className="tw-mt-1 tw-block tw-text-xs tw-leading-5">
             {error}
           </small>
         )}
-      </div>
-      {onRefresh && (
-        <Button className="tw-col-span-2" onClick={onRefresh} disabled={retrying}>
-          <RefreshCw aria-hidden="true" />
-          {t("Retry now")}
-        </Button>
-      )}
-    </div>
+    </InfoCallout>
   );
 }
 

@@ -21,12 +21,18 @@ export function ProductStatusPanel({
   nextCheckAt,
   expires,
   adminDate,
+  versionFeedStale = false,
 }) {
   const isExpired = licenseStatus === "expired";
   const hasVersionFeed = normalizeVersion(installedVersion).length > 0 && normalizeVersion(latestVersion).length > 0;
   const lastCheck = formatAdminDateTime(checkedAt, adminDate);
   const nextCheck = formatAdminDateTime(nextCheckAt, adminDate);
   const expiry = formatAdminDateTime(expires, adminDate, false);
+  const numericNextCheck = typeof nextCheckAt === "number" || /^\d{10,13}$/.test(String(nextCheckAt || ""));
+  const nextCheckTime = numericNextCheck
+    ? Number(nextCheckAt) * (Number(nextCheckAt) < 1e12 ? 1000 : 1)
+    : Date.parse(nextCheckAt || "");
+  const verificationOverdue = Number.isFinite(nextCheckTime) && nextCheckTime > 0 && nextCheckTime < Date.now();
   const hasUpdate = compareProductVersions(latestVersion, installedVersion) > 0;
   return (
     <Card className="cci-admin-product-updates">
@@ -54,7 +60,7 @@ export function ProductStatusPanel({
 
       <div className="tw-grid tw-gap-3 tw-p-4">
         <InfoCallout
-          tone={isExpired ? "warning" : hasVersionFeed && !hasUpdate ? "success" : "info"}
+          tone={isExpired || versionFeedStale ? "warning" : hasVersionFeed && !hasUpdate ? "success" : "info"}
           icon={
             hasUpdate ? (
               <Download aria-hidden="true" />
@@ -65,6 +71,8 @@ export function ProductStatusPanel({
           title={
             isExpired
               ? t("Renew your Pro license")
+              : versionFeedStale
+              ? t("Version information needs refreshing")
               : hasUpdate
               ? t("New version available")
               : hasVersionFeed
@@ -72,7 +80,7 @@ export function ProductStatusPanel({
                 : t("Version feed is unavailable")
           }
         >
-          {isExpired ? licenseMessage || t("Published content remains visible. Renew your license to save Pro settings.") : description || (hasUpdate ? t("Review and install the latest release when you are ready.") : !hasVersionFeed ? t("Version information is temporarily unavailable. Please try again later.") : isPro ? t("Pro access is active and premium features can be used on this site.") : t("Your installed version is current."))}
+          {isExpired ? licenseMessage || t("Published content remains visible. Renew your license to save Pro settings.") : versionFeedStale ? t("Showing saved version information. The product catalog could not be reached.") : !hasVersionFeed ? t("Version information is temporarily unavailable. Please try again later.") : description || (hasUpdate ? t("Review and install the latest release when you are ready.") : t("Your installed version is current."))}
         </InfoCallout>
 
         <div className="tw-grid tw-grid-cols-2 tw-gap-2">
@@ -83,6 +91,9 @@ export function ProductStatusPanel({
             active={hasUpdate}
           />
         </div>
+        <p className="!tw-m-0 tw-text-xs tw-leading-5 tw-text-cci-nm-muted">
+          {t("Version information from the product catalog.")}
+        </p>
 
         {hasUpdate && updateUrl && (
           <Button
@@ -98,15 +109,17 @@ export function ProductStatusPanel({
           </Button>
         )}
 
-        <div className="tw-grid tw-gap-2">
+        {(lastCheck || nextCheck || expiry) && <div className="tw-grid tw-gap-2 tw-border-0 tw-border-t tw-border-solid tw-border-cci-nm-border tw-pt-3">
+          <h3 className="!tw-m-0 !tw-border-0 !tw-p-0 !tw-text-sm !tw-font-semibold !tw-leading-5 tw-text-cci-nm-text">{t("License verification")}</h3>
           {lastCheck && (
-            <CompactMeta label={t("Last check")} value={lastCheck} />
+            <CompactMeta label={t("License last verified")} value={lastCheck} />
           )}
           {nextCheck && (
-            <CompactMeta label={t("Next check")} value={nextCheck} />
+            <CompactMeta label={verificationOverdue ? t("License verification due") : t("Next license verification")} value={nextCheck} />
           )}
-          {expiry && <CompactMeta label={t("Expires")} value={expiry} />}
-        </div>
+          {verificationOverdue && <p role="status" className="!tw-m-0 tw-text-xs tw-leading-5 tw-text-cci-nm-muted">{t("Automatic license verification is overdue. Check the license in License settings.")}</p>}
+          {expiry && <CompactMeta label={t("License expires")} value={expiry} />}
+        </div>}
       </div>
     </Card>
   );

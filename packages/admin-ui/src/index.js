@@ -37,3 +37,8 @@ export { LicenseCardHeader } from './license-card-header.jsx';
 export { ResourceListHeader } from './resource-list-header.jsx';
 
 export { createApiError } from './api-error.js';
+
+export { CountBadge } from './count-badge.jsx';
+export { ConfirmDeleteDialog } from './confirm-delete-dialog.jsx';
+
+export { createBuilderComponents } from './builder.jsx';

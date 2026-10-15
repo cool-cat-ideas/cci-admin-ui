@@ -1,6 +1,6 @@
 {
   "name": "@cci/admin-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared React admin UI components for CCI products.",
   "type": "module",
   "main": "dist/index.js",
@@ -37,7 +37,8 @@
     "clsx": "^2.1.1",
     "lucide-react": "^1.17.0",
     "react": "^19.2.7",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "esbuild": "0.28.2"

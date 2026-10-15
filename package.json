@@ -1,7 +1,7 @@
 {
   "name": "cci-admin-ui",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared UI components and themes for Cool Cat Ideas products.",
   "license": "MIT",
   "workspaces": [

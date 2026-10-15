@@ -1,0 +1,170 @@
+/* One visual contract for CCI layout builders, including native admin resets.
+ * The attributes deliberately outrank platform and legacy product selectors.
+ * Product styles own grid spans, canvas width and domain-specific content. */
+[data-cci-builder-canvas] {
+  --cci-builder-brand: #6b4be8;
+  --cci-builder-soft: #f3f0ff;
+  --cci-builder-border: #e2e8f0;
+  --cci-builder-brand-border: #d9d1ff;
+  --cci-builder-text: #151922;
+  --cci-builder-muted: #64748b;
+}
+[data-cci-builder-canvas] [data-cci-builder-panel] {
+  min-width: 0; container-type: inline-size;
+  border: 1px solid var(--cci-builder-border) !important;
+  border-radius: 6px !important; background: white !important;
+  box-shadow: none !important;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+[data-cci-builder-canvas] [data-cci-builder-header] {
+  display: flex !important; align-items: center !important;
+  justify-content: space-between !important; flex-wrap: wrap !important;
+  gap: 8px !important; min-height: 48px !important;
+  padding: 10px 12px !important;
+  border: 0 !important; border-bottom: 1px solid #eef2f7 !important;
+  border-radius: 5px 5px 0 0 !important; background: white !important;
+  color: var(--cci-builder-text) !important; border-color: #eef2f7 !important;
+  font-size: 14px !important; font-weight: 400 !important; line-height: 1.5 !important;
+  transition: background-color 150ms;
+}
+[data-cci-builder-canvas] [data-cci-builder-heading] {
+  display: flex !important; align-items: center !important;
+  flex: 1 !important; flex-wrap: wrap !important; min-width: 0 !important;
+  gap: 8px !important; padding: 0 !important; margin: 0 !important;
+  border: 0 !important; border-radius: 0 !important;
+  background: transparent !important; color: inherit !important;
+  font-size: 14px !important; font-weight: 600 !important; line-height: 1.5 !important;
+  text-align: left !important; box-shadow: none !important;
+  cursor: pointer;
+}
+[data-cci-builder-canvas] [data-cci-builder-heading] > :is(span,strong):not([data-cci-builder-metric]) {
+  font-size: 14px !important; font-weight: 600 !important; line-height: 1.5 !important;
+  color: inherit !important; white-space: normal !important; overflow-wrap: anywhere;
+}
+[data-cci-builder-canvas] [data-cci-builder-metric] {
+  display: inline-flex !important; align-items: center !important; flex-shrink: 0; gap: 0 !important;
+  padding: 2px 6px !important; border: 1px solid #dbeafe !important;
+  border-radius: 999px !important; background: #eff6ff !important;
+  color: #2563eb !important; font-size: 11px !important;
+  font-weight: 600 !important; line-height: 1.4 !important; white-space: nowrap !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-metric] > span { font: inherit !important; color: inherit !important; }
+[data-cci-builder-canvas] [data-cci-builder-metric="count"] {
+  padding: 3px 8px !important; background: white !important;
+  border-color: var(--cci-builder-border) !important;
+  color: var(--cci-builder-muted) !important; font-weight: 700 !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-actions] {
+  display: flex !important; align-items: center !important; flex-wrap: wrap;
+  gap: 4px !important; margin-left: auto; flex-shrink: 0;
+}
+[data-cci-builder-canvas] [data-cci-builder-actions] > button:not(:disabled) { opacity: .78; }
+[data-cci-builder-canvas] :is([data-cci-builder-header],[data-cci-builder-item]):focus-within > [data-cci-builder-actions] > button { opacity: 1; }
+[data-cci-builder-canvas] [data-cci-builder-grip] {
+  width: 16px !important; height: 16px !important; min-width: 16px !important;
+  margin: 0 !important; padding: 0 !important; border: 0 !important;
+  background: transparent !important; color: inherit !important; flex-shrink: 0;
+  cursor: grab; align-self: center !important; opacity: 1 !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-item] {
+  display: grid !important; grid-template-columns: minmax(0,1fr) auto !important;
+  align-items: center !important; gap: 8px !important; padding: 8px !important;
+  min-height: 56px !important; min-width: 0; border: 1px solid var(--cci-builder-border) !important;
+  border-radius: 6px !important; background: white !important;
+  color: var(--cci-builder-text) !important; box-shadow: none !important;
+  transition: background-color 150ms, border-color 150ms;
+}
+[data-cci-builder-canvas] [data-cci-builder-item-main] {
+  display: flex !important; align-items: center !important; gap: 8px !important;
+  width: 100%; min-width: 0 !important; padding: 0 !important; margin: 0 !important;
+  border: 0 !important; background: transparent !important; border-radius: 0 !important;
+  color: inherit !important; text-align: left !important; font: inherit; box-shadow: none !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-item-copy] { display: grid; gap: 4px; min-width: 0; flex: 1; }
+[data-cci-builder-canvas] [data-cci-builder-item-title] {
+  display: block; margin: 0 !important; font-size: 14px !important;
+  font-weight: 600 !important; line-height: 1.5 !important;
+  color: inherit !important; overflow-wrap: anywhere; white-space: normal !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-item-description] {
+  display: block !important; margin: 0 !important; padding: 0 !important;
+  border: 0 !important; background: transparent !important;
+  font-size: 12px !important; font-weight: 400 !important; line-height: 1.5 !important;
+  color: var(--cci-builder-muted) !important; overflow-wrap: anywhere;
+}
+[data-cci-builder-canvas] [data-cci-builder-panel]:has(> [data-cci-builder-header] > [data-cci-builder-heading][aria-pressed="true"]) {
+  border-color: var(--cci-builder-brand-border) !important;
+  box-shadow: 0 0 0 2px rgb(107 75 232 / 10%) !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-header]:has(> [aria-pressed="true"]),
+[data-cci-builder-canvas] [data-cci-builder-header]:focus-within {
+  background: var(--cci-builder-soft) !important; color: var(--cci-builder-brand) !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-item]:has(> [aria-pressed="true"]) {
+  background: var(--cci-builder-brand) !important; border-color: var(--cci-builder-brand) !important;
+  color: white !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-item]:has(> [aria-pressed="true"]) [data-cci-builder-item-description] { color: rgb(255 255 255 / 85%) !important; }
+[data-cci-builder-canvas] :is([data-cci-builder-heading],[data-cci-builder-item-main]):focus-visible {
+  outline: 2px solid var(--cci-builder-brand) !important; outline-offset: 2px !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-item]:has(> [aria-pressed="true"]) > [data-cci-builder-item-main]:focus-visible { outline-color: white !important; }
+@media (hover: hover) {
+  [data-cci-builder-canvas] [data-cci-builder-panel]:hover:not(:has([data-cci-builder-panel]:hover,[data-cci-builder-item]:hover)) { border-color: var(--cci-builder-brand-border) !important; }
+  [data-cci-builder-canvas] [data-cci-builder-panel]:hover:not(:has([data-cci-builder-panel]:hover,[data-cci-builder-item]:hover)) > [data-cci-builder-header] {
+    background: var(--cci-builder-soft) !important; color: var(--cci-builder-brand) !important;
+  }
+  [data-cci-builder-canvas] [data-cci-builder-item]:hover:not(:has(> [aria-pressed="true"])),
+  [data-cci-builder-canvas] [data-cci-builder-item]:focus-within:not(:has(> [aria-pressed="true"])) {
+    background: var(--cci-builder-soft) !important; border-color: var(--cci-builder-brand-border) !important;
+  }
+  [data-cci-builder-canvas] :is([data-cci-builder-header],[data-cci-builder-item]):hover > [data-cci-builder-actions] > button { opacity: 1; }
+}
+@container (max-width: 280px) {
+  [data-cci-builder-canvas] [data-cci-builder-header] > [data-cci-builder-heading] { flex-basis: 100% !important; }
+  [data-cci-builder-canvas] [data-cci-builder-item] { grid-template-columns: minmax(0,1fr) !important; }
+  [data-cci-builder-canvas] [data-cci-builder-item] > [data-cci-builder-actions] { grid-column: 1 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-cci-builder-canvas] :is([data-cci-builder-panel],[data-cci-builder-header],[data-cci-builder-item]) { transition: none !important; }
+}
+
+[data-cci-builder-canvas] [data-cci-builder-ruler] {
+  display: grid !important; grid-template-columns: repeat(12,minmax(0,1fr)) !important;
+  align-items: center; gap: 16px !important; padding: 10px 16px !important;
+  background: #f8fafc !important; border-bottom: 1px solid #eef2f7 !important;
+}
+[data-cci-builder-canvas] [data-cci-builder-ruler] > span {
+  display: block !important; min-width: 0; border-radius: 999px !important;
+  background: #e2e8f0 !important; color: #64748b !important;
+  font-size: 11px !important; font-weight: 600 !important; line-height: 14px !important;
+  text-align: center;
+}
+
+[data-cci-builder-dialog-overlay] {
+  position: fixed; inset: 0; z-index: 99990; display: grid;
+  place-items: center; padding: 16px; background: rgb(2 6 23 / 35%);
+}
+[data-cci-builder-dialog-frame] {
+  box-sizing: border-box; display: grid; grid-template-rows: auto minmax(0,1fr) auto;
+  width: 100%; max-width: 1024px; max-height: 92dvh; overflow: hidden;
+  border: 1px solid #dfe5ec; border-radius: 8px; background: white;
+  color: #151922; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+[data-cci-builder-dialog-frame] *, [data-cci-builder-dialog-frame] *::before, [data-cci-builder-dialog-frame] *::after { box-sizing: border-box; }
+[data-cci-builder-dialog-header] {
+  display: flex !important; align-items: start; justify-content: space-between;
+  gap: 16px; padding: 20px 24px !important; border-bottom: 1px solid #dfe5ec !important;
+}
+[data-cci-builder-dialog-header] h2 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.25; color: #151922; }
+[data-cci-builder-dialog-body] { min-height: 0; overflow: auto; padding: 24px !important; }
+[data-cci-builder-dialog-footer] {
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 8px; padding: 16px 20px !important; border-top: 1px solid #dfe5ec !important;
+}
+@media (max-width: 600px) {
+  [data-cci-builder-dialog-overlay] { padding: 8px; }
+  [data-cci-builder-dialog-frame] { max-height: calc(100dvh - 16px); }
+  [data-cci-builder-dialog-header], [data-cci-builder-dialog-body] { padding: 16px !important; }
+}

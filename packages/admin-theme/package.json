@@ -1,6 +1,6 @@
 {
   "name": "@cci/admin-theme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared Tailwind admin theme for CCI products.",
   "main": "src/index.cjs",
   "files": [

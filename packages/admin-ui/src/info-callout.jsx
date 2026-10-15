@@ -20,7 +20,7 @@ export function createInfoCallout() {
           {icon || <Icon aria-hidden='true' />}
         </span>
         <div className='tw-grid tw-min-w-0 tw-gap-1 tw-break-words !tw-text-inherit'>
-          {title ? <strong className='tw-text-sm tw-leading-5 !tw-text-inherit'>{title}</strong> : null}
+          {title ? <strong className='tw-text-sm tw-font-semibold tw-leading-5 !tw-text-inherit'>{title}</strong> : null}
           {children ? <div className='tw-text-sm tw-leading-6'>{children}</div> : null}
           {actions ? <div className='tw-mt-1 tw-flex tw-flex-wrap tw-gap-2'>{actions}</div> : null}
         </div>

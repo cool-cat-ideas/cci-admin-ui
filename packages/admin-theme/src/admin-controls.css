@@ -41,7 +41,7 @@
 .cci-admin-layout-shell [data-slot="input"],
 .cci-admin-layout-shell [data-slot="select-trigger"],
 .cci-admin-layout-shell [data-slot="textarea"] {
-  border-radius: var(--cci-admin-radius) !important;
+  border-radius: var(--cci-admin-radius, 0.375rem) !important;
 }
 
 .cci-admin-layout-shell [data-slot="field-label"] {

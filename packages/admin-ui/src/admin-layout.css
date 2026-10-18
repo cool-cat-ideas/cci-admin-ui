@@ -1,0 +1,36 @@
+/* Import alongside the product theme. Host toolbars remain outside this frame. */
+.cci-admin-layout-shell,
+.cci-admin-layout-shell > aside,
+.cci-admin-layout-shell > .cci-admin-layout-workspace {
+  box-sizing: border-box;
+}
+body.wp-admin:has(.cci-admin-layout-shell) #wpcontent {
+  padding-left: 0;
+}
+@media (min-width: 961px) {
+  [data-cci-viewport-host]:has(> .cci-admin-layout-shell),
+  div:has(> [data-cci-viewport-host] > .cci-admin-layout-shell) {
+    min-height: 0;
+  }
+  .cci-admin-layout-shell[data-cci-viewport] {
+    min-height: var(--cci-admin-viewport-height);
+    margin-bottom: 0;
+  }
+  .cci-admin-layout-shell[data-cci-viewport] > aside {
+    grid-template-rows: auto auto;
+    align-content: start;
+    overflow: visible;
+  }
+  .cci-admin-layout-shell[data-cci-viewport] > aside > div:last-child {
+    overflow: visible;
+  }
+  body.wp-admin:has(.cci-admin-layout-shell[data-cci-viewport]) #wpbody-content {
+    padding-bottom: 0;
+  }
+  body.wp-admin:has(.cci-admin-layout-shell[data-cci-viewport]) #wpfooter {
+    display: none;
+  }
+  body.ps_back-office:has(.cci-admin-layout-shell[data-cci-viewport]) #main {
+    padding-bottom: 0;
+  }
+}

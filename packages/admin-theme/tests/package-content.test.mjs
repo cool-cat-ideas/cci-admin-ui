@@ -12,3 +12,13 @@ test('theme finds the installed public UI source without a private checkout', ()
   assert.ok(globs.every((value) => config.content.includes(value)));
   assert.ok(config.safelist.includes('tw-hidden'));
 });
+
+test('interaction radius remains available when a product omits the base layer', () => {
+  const components = {};
+  const config = createTailwindConfig({ namespace: 'cci-wpc', safelistMode: 'shared-ui' });
+  config.plugins[0]({
+    addBase() {},
+    addComponents(rules) { Object.assign(components, rules); },
+  });
+  assert.equal(components['.cci-admin-layout-shell']['--cci-admin-radius'], '0.375rem');
+});

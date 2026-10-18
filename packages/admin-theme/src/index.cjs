@@ -353,11 +353,17 @@ function createTailwindConfig({
       extend: { ...createAdminTheme(namespace, colors), colors: { ...createAdminTheme(namespace, colors).colors, ...createAdminTheme('cci-nm', colors).colors } },
     },
     plugins: [({addBase, addComponents}) => {
-      addBase({'.cci-admin-layout-shell': {'--cci-admin-brand': ADMIN_COLORS.brand, '--cci-admin-brand-hover': ADMIN_COLORS.brandStrong, '--cci-admin-brand-soft': ADMIN_COLORS.brandSoft, '--cci-admin-brand-border': ADMIN_COLORS.brandBorder, '--cci-admin-radius': '0.375rem'}});
       addBase(postcss.parse(fs.readFileSync(path.join(__dirname, 'admin-controls.css'), 'utf8')).nodes);
       // Host headings must use the panel font; authored editor content keeps its own typography.
       // Components also ship in consumers that deliberately omit Tailwind's base layer.
       addComponents({
+        '.cci-admin-layout-shell': {
+          '--cci-admin-brand': ADMIN_COLORS.brand,
+          '--cci-admin-brand-hover': ADMIN_COLORS.brandStrong,
+          '--cci-admin-brand-soft': ADMIN_COLORS.brandSoft,
+          '--cci-admin-brand-border': ADMIN_COLORS.brandBorder,
+          '--cci-admin-radius': '0.375rem',
+        },
         ':is(.cci-admin-layout-shell, .cci-wpc-admin-shell, .cci-cookie-consent-admin-shell) :is(h1, h2, h3, h4, h5, h6):not(.bn-container *)': { fontFamily: 'inherit' },
       }, { respectPrefix: false });
     }, ...plugins],

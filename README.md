@@ -60,6 +60,20 @@ The theme's `addon-safelist.cjs` lists utility classes supported by carousel
 add-on panels. Extend that style contract when introducing a new add-on layout.
 Base-edition builds must not scan private Pro repositories for CSS classes.
 
+### Administration layout
+
+Use `AdminShell` and `AdminWorkspace` from `@cci/admin-ui/layout` for product
+navigation and content. Import `@cci/admin-ui/src/admin-layout.css` before
+Tailwind in the product stylesheet. Keep the sidebar as the shell's first child;
+its navigation area should scroll when its contents exceed the available height.
+
+Above 960 px, the shell measures the space below the host page header and uses
+it as the minimum page height. Longer lists, sidebars and editors extend the
+page and use normal browser scrolling. Pass the current section as
+`AdminWorkspace`'s `scrollKey` to open a new section at the top without resetting
+its form state. WordPress's footer and PrestaShop's bottom page padding are
+omitted only on these product screens. Narrow screens keep normal page scrolling.
+
 ### Layout builder controls
 
 `createBuilderComponents()` exposes the panel, header, heading, item, actions,

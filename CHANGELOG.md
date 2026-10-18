@@ -16,6 +16,8 @@ All packages share the same release version. Planned work belongs in issues;
 
 ### Fixed
 
+- Administration panels fill the available window height and let longer pages scroll normally, without separate scrollbars in product navigation or status panels.
+
 - Product status headings and descriptions keep consistent spacing and font weight when PrestaShop back-office styles are loaded.
 - Tabs share one white navigation bar, spacing, typography, icons and active, hover and focus states across product themes. Each tab retains 16 px horizontal padding in every state. Product editors no longer need their own tab styles.
 

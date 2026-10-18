@@ -11,6 +11,7 @@ const defaultLabels = {
   available: 'Available',
   viewInStore: 'View in store',
   comingSoon: 'Coming soon',
+  author: 'Author',
 };
 
 export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
@@ -75,7 +76,9 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
     installedLabel = labels.installed,
     availableLabel = labels.available,
     storeLabel = labels.viewInStore,
+    authorLabel = labels.author,
     onLockedClick,
+    actions = null,
   }) {
     const isStore = mode === 'store';
     const locked = Boolean(item.locked);
@@ -120,6 +123,12 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
 
           <p className={cn('tw-m-0 tw-text-sm tw-leading-5', theme.textMuted)}>{item.description}</p>
 
+          {item.author ? (
+            <p className={cn('tw-m-0 tw-break-words tw-text-xs tw-leading-5', theme.textMuted)}>
+              {authorLabel}: {item.author}
+            </p>
+          ) : null}
+
           {locked ? (
             <div
               className={cn(
@@ -163,7 +172,7 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
           ) : null}
         </div>
 
-        <div className={cn('tw-border-0 tw-border-t tw-border-solid tw-p-3', theme.border)}>
+        <div className={cn('tw-grid tw-gap-2 tw-border-0 tw-border-t tw-border-solid tw-p-3', theme.border)}>
           {isStore ? (
             item.installed ? (
               <Button variant='outlineAccent' disabled className={`${theme.componentPrefix}-state-full ${theme.componentPrefix}-state-installed`}>
@@ -209,6 +218,7 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
               {availableLabel}
             </span>
           )}
+          {actions}
         </div>
       </article>
     );

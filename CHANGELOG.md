@@ -6,7 +6,8 @@ All packages share the same release version. Planned work belongs in issues;
 
 ## Unreleased
 
-No changes yet.
+- Tabs share one white navigation bar, spacing, typography, icons and active, hover and focus states across product themes. Product editors no longer need their own tab styles.
+- Catalog cards show extension authors alongside their versions and provide a shared footer for product-specific actions.
 
 ## 1.0.1
 

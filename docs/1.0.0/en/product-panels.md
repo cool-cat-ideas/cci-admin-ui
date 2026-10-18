@@ -89,3 +89,11 @@ export function News({ endpoint, locale, adminDate, t }) {
 The response must contain `news: []`. Each item can include `id`, `title`, `excerpt`, `publishedAt`, `kind`, `url` and `content`. `normalizeProductNews(items, locale, adminDate)` filters invalid entries, keeps the first four in feed order, formats dates and accepts only absolute HTTP(S) article URLs without embedded credentials. Kinds are `news`, `release`, `security` and `maintenance`; an unknown kind becomes `news`. `release` describes a product release, not a separate product category.
 
 The shared view provides item separators, article links, hover/focus states, loading, empty and retry states. A missing/invalid article URL leaves the item unlinked. Supply the URL of the full news article, not a product landing page. Full-length articles and archive pagination belong on the website, not inside the admin sidebar.
+
+## Show extension and integration cards
+
+Use `createCatalogComponents(themeName, { labels })` for installed extensions, integrations, template packs and store items. CCI Blog, CCI Nice Menu, WP Posts Carousel and CCI Inquiry share this card. Keep product-specific configuration outside the shared library.
+
+Pass `item.title`, `description`, `author` and `version` as plain text. The author appears under the description; the version appears beside the title in both installed and store modes. Do not substitute the host product version for an independent add-on's version. Missing metadata is omitted. Translate `labels.author` (default `Author`), or pass the card's `authorLabel` prop.
+
+`CatalogProductCard` accepts an optional `actions` React node, rendered in its shared footer after the existing availability or license action. Use shared Button variants for configuration links. The card never activates, deactivates, uninstalls or grants a license itself; product callbacks own those operations.

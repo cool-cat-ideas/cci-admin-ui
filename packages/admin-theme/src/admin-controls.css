@@ -65,17 +65,6 @@
   vertical-align: middle;
 }
 
-.cci-admin-layout-shell [data-slot="tabs-trigger"][data-state="active"] {
-  border-color: var(--cci-admin-brand) !important;
-  background: transparent !important;
-  color: var(--cci-admin-brand-hover) !important;
-}
-
-.cci-admin-layout-shell [data-slot="tabs-trigger"]:hover {
-  background: #faf9ff !important;
-  color: var(--cci-admin-brand-hover) !important;
-}
-
 .cci-admin-layout-shell [role="checkbox"][data-state="checked"] {
   border-color: var(--cci-admin-brand) !important;
   background: var(--cci-admin-brand) !important;

@@ -2,6 +2,12 @@
 
 Use the product's themed entry point for all controls in a screen. Keep labels, errors and persistence in the product so the same components work on both platforms.
 
+## Tabs
+
+Use `Tabs`, `TabsList`, `TabsTrigger` and `TabsPanel` from the same themed entry point. The list owns the white bar, height, spacing, horizontal scrolling and bottom border. The trigger owns typography, icon sizes, underline, hover and focus. Render the list directly inside `Tabs`; do not wrap it in another styled navigation bar or add product-specific tab CSS. Put a Lucide icon directly inside each trigger when an icon is needed.
+
+The active tab keeps its brand-colored underline and white background on hover. Inactive tabs use the shared pale hover background and underline. Long lists scroll horizontally; they do not wrap or create vertical scrollbars. Use `aria-label` on each list, especially for nested groups. Keep panels directly after their list when the view has no separate content layout, so there is no gap between navigation and content.
+
 ## Save a setting
 
 This component accepts `saveSettings({ title, period })`, a function returning a promise that rejects when saving fails. It demonstrates a field error, a form error and a toast without creating a second alert style.

@@ -6,7 +6,7 @@ All packages share the same release version. Planned work belongs in issues;
 
 ## Unreleased
 
-## 1.0.1 — 2026-10-18
+## 1.0.1
 
 ### Added
 

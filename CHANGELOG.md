@@ -6,19 +6,18 @@ All packages share the same release version. Planned work belongs in issues;
 
 ## Unreleased
 
-- Tabs share one white navigation bar, spacing, typography, icons and active, hover and focus states across product themes. Product editors no longer need their own tab styles.
-- Catalog cards show extension authors alongside their versions and provide a shared footer for product-specific actions.
-
-## 1.0.1
+## 1.0.1 — 2026-10-18
 
 ### Added
 
 - Shared layout builder controls for menu and form editors, including selectable items, drag grips and column width indicators.
 - Shared count badges and delete confirmation dialogs for product administration screens.
+- Catalog cards show extension authors alongside their versions and provide a shared footer for product-specific actions.
 
 ### Fixed
 
 - Product status headings and descriptions keep consistent spacing and font weight when PrestaShop back-office styles are loaded.
+- Tabs share one white navigation bar, spacing, typography, icons and active, hover and focus states across product themes. Each tab retains 16 px horizontal padding in every state. Product editors no longer need their own tab styles.
 
 ## 1.0.0
 

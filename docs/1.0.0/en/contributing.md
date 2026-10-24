@@ -36,14 +36,13 @@ For a style change, inspect the generated CSS loaded by the browser. Editing a c
 
 Maintain the [changelog](https://github.com/cool-cat-ideas/cci-admin-ui/blob/main/CHANGELOG.md)
 in the same change as a public behavior or API change. Add a short entry under
-`Unreleased`, describing the effect for users or integrating developers. Include
-migration steps for breaking changes; keep internal discussions and planned work
-out of release notes.
+the matching package version, describing the effect for users or integrating
+developers. Include migration steps for breaking changes; keep internal
+discussions and planned work out of release notes.
 
-Before publishing, move those entries into the matching package version section
-and add the actual release date. Keep an empty `Unreleased` section for the next
-cycle. Include the changelog in the release commit before creating its tag, and
-use that version's entries in the GitHub release notes.
+Before publishing, check that the changelog version matches the package version.
+Include the changelog in the release commit before creating its tag, and use
+that version's entries in the GitHub release notes. Omit empty release sections.
 
 1. Publish the public UI source tag and matching npm archives/checksums.
 2. Confirm a clean product checkout can run `npm ci` without sibling repositories or private credentials.

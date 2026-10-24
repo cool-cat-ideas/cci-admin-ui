@@ -1,12 +1,14 @@
 # Changelog
 
 Notable changes to CCI Admin UI and its five versioned packages are recorded here.
-All packages share the same release version. Planned work belongs in issues;
-`Unreleased` contains implemented changes awaiting the next release.
-
-## Unreleased
+All packages share the same release version. Record implemented changes under
+the matching package version. Planned work belongs in issues.
 
 ## 1.0.1
+
+### Documentation
+
+- Updated contributor guidance to record changes under the matching package version and omit empty release sections.
 
 ### Added
 

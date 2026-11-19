@@ -80,6 +80,6 @@ test('An uninstalled edition and an older catalogue do not trigger an update', (
 
 test('A missing catalogue version is shown as a short hyphen', () => {
   const html = renderStatus({ editions: { free: { installedVersion: '1.0.0', latestVersion: '1.0.0' } } });
-  assert.match(html, />-<\/span>/);
+  assert.match(html, />-<\/dd>/);
   assert.doesNotMatch(html, /—/);
 });

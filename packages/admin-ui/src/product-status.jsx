@@ -104,6 +104,11 @@ export function ProductStatusPanel({
         </InfoCallout>
 
         <div className="tw-grid tw-grid-cols-2 tw-gap-2">
+          {editions && (
+            <h3 className="!tw-m-0 tw-col-span-2 !tw-border-0 !tw-p-0 !tw-text-sm !tw-font-semibold !tw-leading-5 tw-text-cci-nm-text">
+              {t("Version")}
+            </h3>
+          )}
           <VersionStat
             label={t("Installed")}
             value={installedVersion || "-"}

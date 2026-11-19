@@ -125,7 +125,7 @@ export function ProductStatusPanel({
             label={t("Latest")}
             value={latestVersion || "-"}
             active={hasUpdate}
-            rows={editions ? rows.map(row => ({ ...row, value: row.latest || "—" })) : undefined}
+            rows={editions ? rows.map(row => ({ ...row, value: row.latest || "-" })) : undefined}
           />
         </div>
         {!editions && (

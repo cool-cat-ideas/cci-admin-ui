@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // Explicit allowlist: adding a workspace must never implicitly publish it.
-const packages = ['admin-core', 'admin-theme', 'admin-ui', 'presta-adapter', 'wp-adapter'];
+const packages = ['admin-core', 'admin-theme', 'admin-ui', 'form-captcha', 'presta-adapter', 'wp-adapter'];
 const destination = join(root, 'releases');
 const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
 function npm(args, capture = false) {

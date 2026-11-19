@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, ExternalLink, LockKeyhole } from 'lucide-react';
+import { CheckCircle2, CircleMinus, ExternalLink, LockKeyhole } from 'lucide-react';
 import { cn } from './cn.js';
 import { createButton } from './button.jsx';
 import { createProBadge } from './pro-badge.jsx';
@@ -74,6 +74,7 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
     lockedActionUrl = '',
     lockedActionLabel = labels.requiresPro,
     installedLabel = labels.installed,
+    installedTone = 'success',
     availableLabel = labels.available,
     storeLabel = labels.viewInStore,
     authorLabel = labels.author,
@@ -175,10 +176,7 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
         <div className={cn('tw-grid tw-gap-2 tw-border-0 tw-border-t tw-border-solid tw-p-3', theme.border)}>
           {isStore ? (
             item.installed ? (
-              <Button variant='outlineAccent' disabled className={`${theme.componentPrefix}-state-full ${theme.componentPrefix}-state-installed`}>
-                <CheckCircle2 aria-hidden='true' />
-                {installedLabel}
-              </Button>
+              <InstalledStatus tone={installedTone}>{installedLabel}</InstalledStatus>
             ) : item.url ? (
               <Button asChild variant='outlineAccent' className={`${theme.componentPrefix}-state-full`}>
                 <a href={item.url} target='_blank' rel='noreferrer'>
@@ -201,10 +199,7 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
               onLockedClick={onLockedClick}
             />
           ) : item.installed ? (
-            <Button variant='outlineAccent' disabled className={`${theme.componentPrefix}-state-full ${theme.componentPrefix}-state-installed`}>
-              <CheckCircle2 aria-hidden='true' />
-              {installedLabel}
-            </Button>
+            <InstalledStatus tone={installedTone}>{installedLabel}</InstalledStatus>
           ) : (
             <span
               className={cn(
@@ -225,6 +220,27 @@ export function createCatalogComponents(themeName = 'niceMenu', options = {}) {
   }
 
   return { CatalogEmptyState, CatalogGrid, CatalogProductCard };
+}
+
+function InstalledStatus({ tone, children }) {
+  const active = tone === 'success';
+  const Icon = active ? CheckCircle2 : CircleMinus;
+
+  return (
+    <span
+      data-slot='catalog-installed-status'
+      data-tone={tone}
+      className={cn(
+        'tw-inline-flex tw-min-h-10 tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-md tw-border tw-border-solid tw-px-3 tw-text-sm tw-font-semibold [&_svg]:tw-h-4 [&_svg]:tw-w-4',
+        active
+          ? 'tw-border-lime-300 tw-bg-lime-50 tw-text-lime-900'
+          : 'tw-border-slate-200 tw-bg-slate-100 tw-text-slate-700',
+      )}
+    >
+      <Icon aria-hidden='true' className={active ? 'tw-text-green-600' : undefined} />
+      {children}
+    </span>
+  );
 }
 
 function LockedAction({ Button, componentPrefix, item, lockedActionUrl, lockedActionLabel, onLockedClick }) {

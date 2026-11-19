@@ -5,11 +5,14 @@ import { cn } from "./cn.js";
 import { createCardComponents } from "./card.jsx";
 import { createInfoCallout } from "./info-callout.jsx";
 import { createButton } from "./button.jsx";
+import { StatusBadge } from "./status-badge.jsx";
 const { Card, CardHeader } = createCardComponents();
 const InfoCallout = createInfoCallout();
 const Button = createButton();
 export function ProductStatusPanel({
   t,
+  productName,
+  editions,
   isPro = false,
   licenseStatus,
   licenseMessage,
@@ -24,7 +27,24 @@ export function ProductStatusPanel({
   versionFeedStale = false,
 }) {
   const isExpired = licenseStatus === "expired";
-  const hasVersionFeed = normalizeVersion(installedVersion).length > 0 && normalizeVersion(latestVersion).length > 0;
+  const rows = editions ? [["free", editions.free], ["pro", editions.pro]].map(([edition, versions]) => {
+    const installed = versions?.installedVersion;
+    const latest = versions?.latestVersion;
+    const comparison = compareProductVersions(latest, installed);
+    return {
+      edition,
+      label: t(edition === "pro" ? "Pro" : "Free"),
+      installed,
+      latest: comparison < 0 ? installed : latest,
+      hasUpdate: comparison > 0,
+      updateUrl: versions?.updateUrl,
+    };
+  }) : [];
+  const installedRows = rows.filter(row => row.installed);
+  const hasVersionFeed = editions
+    ? installedRows.length > 0 && installedRows.every(row => row.latest)
+    : normalizeVersion(installedVersion).length > 0 && normalizeVersion(latestVersion).length > 0;
+  const updates = rows.filter(row => row.hasUpdate);
   const lastCheck = formatAdminDateTime(checkedAt, adminDate);
   const nextCheck = formatAdminDateTime(nextCheckAt, adminDate);
   const expiry = formatAdminDateTime(expires, adminDate, false);
@@ -33,7 +53,7 @@ export function ProductStatusPanel({
     ? Number(nextCheckAt) * (Number(nextCheckAt) < 1e12 ? 1000 : 1)
     : Date.parse(nextCheckAt || "");
   const verificationOverdue = Number.isFinite(nextCheckTime) && nextCheckTime > 0 && nextCheckTime < Date.now();
-  const hasUpdate = compareProductVersions(latestVersion, installedVersion) > 0;
+  const hasUpdate = editions ? updates.length > 0 : compareProductVersions(latestVersion, installedVersion) > 0;
   return (
     <Card className="cci-admin-product-updates">
       <CardHeader className="tw-py-3">
@@ -51,7 +71,7 @@ export function ProductStatusPanel({
           </span>
           <div>
             <span className="tw-inline-flex tw-items-center tw-gap-1.5 tw-text-sm tw-text-cci-nm-text">
-              {t("Module status")}
+              {productName || t("Module status")}
             </span>
             <h2>{isExpired ? t("Pro license expired") : isPro ? t("Pro") : t("Free")}</h2>
           </div>
@@ -76,40 +96,40 @@ export function ProductStatusPanel({
               : hasUpdate
               ? t("New version available")
               : hasVersionFeed
-                ? t("You are up to date")
+                ? t(editions ? "Congratulations, you are using the latest version." : "You are up to date")
                 : t("Version feed is unavailable")
           }
         >
-          {isExpired ? licenseMessage || t("Published content remains visible. Renew your license to save Pro settings.") : versionFeedStale ? t("Showing saved version information. The product catalog could not be reached.") : !hasVersionFeed ? t("Version information is temporarily unavailable. Please try again later.") : description || (hasUpdate ? t("Review and install the latest release when you are ready.") : t("Your installed version is current."))}
+          {isExpired ? licenseMessage || t("Published content remains visible. Renew your license to save Pro settings.") : versionFeedStale ? t("Showing saved version information. The product catalog could not be reached.") : hasUpdate ? description || t("Review and install the latest release when you are ready.") : !hasVersionFeed ? t("Version information is temporarily unavailable. Please try again later.") : description || (!editions && t("Your installed version is current."))}
         </InfoCallout>
 
         <div className="tw-grid tw-grid-cols-2 tw-gap-2">
-          <VersionStat label={t("Installed")} value={installedVersion || "-"} />
+          <VersionStat
+            label={t("Installed")}
+            value={installedVersion || "-"}
+            rows={editions ? rows.map(row => ({ ...row, value: row.installed || t("Not installed") })) : undefined}
+          />
           <VersionStat
             label={t("Latest")}
             value={latestVersion || "-"}
             active={hasUpdate}
+            rows={editions ? rows.map(row => ({ ...row, value: row.latest || "—" })) : undefined}
           />
         </div>
         <p className="!tw-m-0 tw-text-xs tw-leading-5 tw-text-cci-nm-muted">
           {t("Version information from the product catalog.")}
         </p>
 
-        {hasUpdate && updateUrl && (
-          <Button
-            variant="outlineAccent"
-            size="sm"
-            className="tw-w-full"
-            asChild
-          >
-            <a href={updateUrl} target="_blank" rel="noreferrer">
+        {(editions ? updates : hasUpdate ? [{ updateUrl }] : []).filter(update => update.updateUrl).map(update => (
+          <Button key={update.edition || "update"} variant="outlineAccent" size="sm" className="tw-w-full" asChild>
+            <a href={update.updateUrl} target="_blank" rel="noreferrer">
               <Download aria-hidden="true" />
-              {t("View update")}
+              {t("View update")}{update.label && ` · ${update.label}`}
             </a>
           </Button>
-        )}
+        ))}
 
-        {(lastCheck || nextCheck || expiry) && <div className="tw-grid tw-gap-2 tw-border-0 tw-border-t tw-border-solid tw-border-cci-nm-border tw-pt-3">
+        {(!editions || isPro || isExpired) && (lastCheck || nextCheck || expiry) && <div className="tw-grid tw-gap-2 tw-border-0 tw-border-t tw-border-solid tw-border-cci-nm-border tw-pt-3">
           <h3 className="!tw-m-0 !tw-border-0 !tw-p-0 !tw-text-sm !tw-font-semibold !tw-leading-5 tw-text-cci-nm-text">{t("License verification")}</h3>
           {lastCheck && (
             <CompactMeta label={t("License last verified")} value={lastCheck} />
@@ -124,11 +144,11 @@ export function ProductStatusPanel({
     </Card>
   );
 }
-function VersionStat({ label, value, active = false }) {
+function VersionStat({ label, value, rows, active = false }) {
   return (
     <div
       className={cn(
-        "tw-rounded-md tw-border tw-border-solid tw-p-3",
+        "tw-min-w-0 tw-rounded-md tw-border tw-border-solid tw-p-3",
         active
           ? "tw-border-cci-nm-brandBorder tw-bg-cci-nm-brandSoft"
           : "tw-border-cci-nm-border tw-bg-cci-nm-surfaceSoft",
@@ -137,9 +157,32 @@ function VersionStat({ label, value, active = false }) {
       <span className="tw-block tw-text-xs tw-font-bold tw-uppercase tw-leading-none tw-text-cci-nm-muted">
         {label}
       </span>
-      <strong className="tw-mt-2 tw-block tw-text-base tw-font-semibold tw-text-cci-nm-text">
-        {value}
-      </strong>
+      {rows ? (
+        <dl className="!tw-m-0 tw-grid tw-gap-1 tw-pt-2">
+          {rows.map(row => (
+            <div key={row.edition} className="tw-grid tw-grid-cols-[auto_minmax(0,1fr)] tw-items-center tw-gap-2">
+              <dt className="!tw-m-0">
+                <StatusBadge
+                  tone="success"
+                  className={cn(
+                    "!tw-rounded-md !tw-py-0.5 !tw-normal-case",
+                    row.edition === "pro" && "!tw-border-amber-200 !tw-bg-amber-50 !tw-text-amber-700",
+                  )}
+                >
+                  {row.label}
+                </StatusBadge>
+              </dt>
+              <dd className="!tw-m-0 tw-break-words tw-text-sm tw-font-semibold tw-tabular-nums tw-text-cci-nm-text">
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <strong className="tw-mt-2 tw-block tw-text-base tw-font-semibold tw-text-cci-nm-text">
+          {value}
+        </strong>
+      )}
     </div>
   );
 }

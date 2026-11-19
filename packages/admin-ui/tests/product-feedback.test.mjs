@@ -49,3 +49,31 @@ test('A cached feed failure never claims that the installed version is current',
   assert.match(html, /Version information needs refreshing/);
   assert.doesNotMatch(html, /You are up to date|Your installed version is current/);
 });
+
+test('Both version fields list Free and Pro, and every available update has its own link', () => {
+  const html = renderStatus({
+    isPro: true,
+    editions: {
+      free: { installedVersion: '1.0.0', latestVersion: '1.1.0', updateUrl: '/free' },
+      pro: { installedVersion: '2.0.0', latestVersion: '2.1.0', updateUrl: '/pro' },
+    },
+  });
+
+  assert.match(html, />Installed<.*>Free<.*>1\.0\.0<.*>Pro<.*>2\.0\.0<.*>Latest<.*>Free<.*>1\.1\.0<.*>Pro<.*>2\.1\.0</);
+  assert.match(html, /href="\/free"[^>]*>.*View update · Free/);
+  assert.match(html, /href="\/pro"[^>]*>.*View update · Pro/);
+});
+
+test('An uninstalled edition and an older catalogue do not trigger an update', () => {
+  const html = renderStatus({
+    editions: {
+      free: { installedVersion: '1.0.0', latestVersion: '0.9.9' },
+      pro: { latestVersion: '2.0.0', updateUrl: '/pro' },
+    },
+  });
+
+  assert.match(html, /Congratulations, you are using the latest version/);
+  assert.match(html, />Not installed</);
+  assert.match(html, />2\.0\.0</);
+  assert.doesNotMatch(html, /0\.9\.9|href="\/pro"|New version available/);
+});

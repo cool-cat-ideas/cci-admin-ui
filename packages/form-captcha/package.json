@@ -1,6 +1,6 @@
 {
   "name": "@cci/form-captcha",
-  "version": "1.0.2-status.5",
+  "version": "1.0.2-status.6",
   "description": "CAPTCHA widgets and settings fields shared by Cool Cat Ideas products.",
   "type": "module",
   "license": "MIT",

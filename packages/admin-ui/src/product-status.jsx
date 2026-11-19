@@ -159,7 +159,10 @@ function VersionStat({ label, value, rows, active = false }) {
           : "tw-border-cci-nm-border tw-bg-cci-nm-surfaceSoft",
       )}
     >
-      <span className="tw-block tw-text-xs tw-font-bold tw-uppercase tw-leading-none tw-text-cci-nm-muted">
+      <span className={cn(
+        "tw-block tw-text-xs tw-font-bold tw-leading-none tw-text-cci-nm-muted",
+        rows ? "tw-normal-case" : "tw-uppercase",
+      )}>
         {label}
       </span>
       {rows ? (

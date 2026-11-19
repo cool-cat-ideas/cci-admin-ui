@@ -79,7 +79,21 @@ test('An uninstalled edition and an older catalogue do not trigger an update', (
 });
 
 test('A missing catalogue version is shown as a short hyphen', () => {
-  const html = renderStatus({ editions: { free: { installedVersion: '1.0.0', latestVersion: '1.0.0' } } });
+  const html = renderStatus({ editions: { free: { installedVersion: '1.0.0', latestVersion: '1.0.0' }, pro: {} } });
   assert.match(html, />-<\/dd>/);
   assert.doesNotMatch(html, /—/);
+});
+
+test('A Pro-only product uses the compact panel with no Free row', () => {
+  const html = renderStatus({
+    productName: 'CCI Inquiry',
+    isPro: true,
+    editions: { pro: { installedVersion: '1.1.0', latestVersion: '1.0.0' } },
+  });
+
+  assert.match(html, /CCI Inquiry/);
+  assert.match(html, /Version information from the product catalog/);
+  assert.match(html, /Congratulations, you are using the latest version/);
+  assert.equal((html.match(/>1\.1\.0<\/dd>/g) ?? []).length, 2);
+  assert.doesNotMatch(html, />Free<|>Not installed<|>1\.0\.0<\/dd>/);
 });

@@ -29,7 +29,8 @@ export function ProductStatusPanel({
   versionFeedStale = false,
 }) {
   const isExpired = licenseStatus === "expired";
-  const rows = editions ? [["free", editions.free], ["pro", editions.pro]].map(([edition, versions]) => {
+  const rows = editions ? ["free", "pro"].filter(edition => edition in editions).map(edition => {
+    const versions = editions[edition];
     const installed = versions?.installedVersion;
     const latest = versions?.latestVersion;
     const comparison = compareProductVersions(latest, installed);

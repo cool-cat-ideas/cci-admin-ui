@@ -1,6 +1,6 @@
 {
   "name": "@cci/admin-ui",
-  "version": "1.0.2",
+  "version": "1.0.2-catalog.2",
   "description": "Shared React admin UI components for CCI products.",
   "type": "module",
   "main": "dist/index.js",

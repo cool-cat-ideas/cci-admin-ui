@@ -10,10 +10,23 @@ const tones = {
     brand: 'tw-border-cci-nm-brandBorder tw-bg-cci-nm-brandSoft tw-text-cci-nm-brandStrong',
 };
 
+const softTones = {
+    neutral: 'tw-border-cci-nm-statusNeutralBorder tw-bg-cci-nm-statusNeutralBg tw-text-cci-nm-statusNeutralText',
+    success: 'tw-border-cci-nm-statusSuccessBorder tw-bg-cci-nm-successSoftBg tw-text-cci-nm-successSoftText',
+    info: 'tw-border-cci-nm-statusInfoBorder tw-bg-cci-nm-statusInfoBg tw-text-cci-nm-infoText',
+    warning: 'tw-border-cci-nm-statusWarningBorder tw-bg-cci-nm-statusWarningBg tw-text-cci-nm-warningText',
+    danger: 'tw-border-cci-nm-statusDangerBorder tw-bg-cci-nm-statusDangerBg tw-text-cci-nm-dangerText',
+    brand: 'tw-border-cci-nm-statusBrandBorder tw-bg-cci-nm-statusBrandBg tw-text-cci-nm-brandStrong',
+};
+
 /** Shared status badge. Existing active/inactive badges keep their publication colors. */
-export function StatusBadge({ active, tone, children, className = '', ...props }) {
-    return <span {...props} data-slot="status-badge" className={cn(
-        'tw-inline-flex tw-items-center tw-whitespace-nowrap tw-rounded-full tw-border tw-border-solid tw-px-2 tw-py-1 tw-text-xs tw-font-bold tw-uppercase',
-        tones[tone] || tones[active ? 'success' : 'neutral'], className,
+export function StatusBadge({ active, tone, variant = 'default', children, className = '', ...props }) {
+    const palette = variant === 'soft' ? softTones : tones;
+    return <span {...props} data-slot="status-badge" data-variant={variant} className={cn(
+        'tw-inline-flex tw-items-center tw-whitespace-nowrap tw-border tw-border-solid tw-px-2 tw-text-xs',
+        variant === 'soft'
+            ? 'tw-rounded-md tw-py-0.5 tw-font-semibold tw-normal-case tw-leading-4'
+            : 'tw-rounded-full tw-py-1 tw-font-bold tw-uppercase',
+        palette[tone] || palette[active ? 'success' : 'neutral'], className,
     )}>{children}</span>;
 }

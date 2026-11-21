@@ -14,11 +14,11 @@ export function createTooltipComponents(themeName = 'niceMenu') {
   const TooltipTrigger = TooltipPrimitive.Trigger;
 
   const TooltipContent = React.forwardRef(function TooltipContent(
-    { className = '', sideOffset = 8, children, ...props },
+    { className = '', sideOffset = 8, portalContainer, children, ...props },
     ref
   ) {
     return (
-      <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Portal container={portalContainer}>
         <TooltipPrimitive.Content
           ref={ref}
           sideOffset={sideOffset}

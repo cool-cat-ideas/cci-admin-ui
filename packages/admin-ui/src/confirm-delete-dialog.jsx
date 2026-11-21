@@ -2,7 +2,9 @@ import React, { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Trash2 } from "lucide-react";
 import { createButton } from "./button.jsx";
+import { createInfoCallout } from "./info-callout.jsx";
 const Button = createButton();
+const InfoCallout = createInfoCallout();
 
 /** Native modal focus containment with CCI Nice Menu's destructive-action layout. */
 export function ConfirmDeleteDialog({
@@ -15,6 +17,8 @@ export function ConfirmDeleteDialog({
   onConfirm,
   disabled = false,
   returnFocusRef,
+  portalContainer,
+  error,
 }) {
   const dialog = useRef(null);
   const cancel = useRef(null);
@@ -58,6 +62,7 @@ export function ConfirmDeleteDialog({
         >
           {description}
         </p>
+        {error && <InfoCallout tone="danger" role="alert" className="tw-mt-3">{error}</InfoCallout>}
       </div>
       <div className="tw-flex tw-flex-wrap tw-justify-end tw-gap-2 tw-p-5">
         <Button
@@ -74,6 +79,6 @@ export function ConfirmDeleteDialog({
         </Button>
       </div>
     </dialog>,
-    document.body,
+    portalContainer || document.body,
   );
 }

@@ -75,7 +75,7 @@ export function createButton(themeName = 'niceMenu') {
           xs: '!tw-h-7 !tw-px-2 !tw-text-xs !tw-leading-none',
           lg: '!tw-h-11 !tw-px-4 !tw-text-sm !tw-leading-none',
           icon: '!tw-h-9 !tw-w-9 !tw-px-0 !tw-text-sm !tw-leading-none',
-          iconSm: '!tw-h-8 !tw-w-8 !tw-px-0 !tw-text-xs !tw-leading-none',
+          iconSm: '!tw-h-8 !tw-w-8 !tw-p-0 tw-shrink-0 !tw-text-xs !tw-leading-none',
           iconXs: '!tw-h-7 !tw-w-7 !tw-px-0 !tw-text-xs !tw-leading-none',
           iconTiny: '!tw-h-6 !tw-w-6 !tw-px-0 !tw-text-xs !tw-leading-none',
         },

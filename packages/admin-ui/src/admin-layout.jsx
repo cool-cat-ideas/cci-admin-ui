@@ -63,6 +63,11 @@ export function AdminWorkspace({ children, className = '', as: Element = 'main',
 export function AdminPageHeader({ children, className = '' }) {
   return <header className={`cci-admin-layout-header tw-mb-5 tw-flex tw-items-end tw-justify-between tw-gap-4 max-[1279px]:tw-flex-wrap ${className}`}>{children}</header>;
 }
+/** One sidebar surface for module information and contextual workspace details. */
+export function AdminSidebar({ children, className = '', label, panel = false, scrollable = false }) {
+  return <aside data-slot="admin-sidebar" aria-label={label}
+    className={`cci-admin-layout-sidebar tw-grid tw-min-w-0 tw-content-start tw-self-start ${panel ? 'tw-gap-0 tw-rounded-md tw-border tw-border-solid tw-border-cci-nm-border tw-bg-white' : 'tw-gap-4'} ${scrollable ? 'cci-admin-layout-sidebar-scrollable' : ''} ${className}`}>{children}</aside>;
+}
 export function AdminColumns({ children, className = '', fullWidth = false }) {
   return <div className={`cci-admin-layout-columns tw-grid tw-min-w-0 tw-grid-cols-1 tw-items-start tw-gap-4 ${fullWidth ? '' : 'xl:tw-grid-cols-[minmax(0,1fr)_320px]'} ${className}`}>{children}</div>;
 }

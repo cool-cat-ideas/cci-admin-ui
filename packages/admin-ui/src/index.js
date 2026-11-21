@@ -22,7 +22,7 @@ export { createProductLogo } from './product-logo.jsx';
 export { createReviewPrompt } from './review-prompt.jsx';
 export { createTooltipComponents } from './tooltip.jsx';
 
-export { AdminShell, AdminWorkspace, AdminPageHeader, AdminColumns } from './admin-layout.jsx';
+export { AdminShell, AdminWorkspace, AdminPageHeader, AdminColumns, AdminSidebar } from './admin-layout.jsx';
 
 export { ProductNavigation, DiagnosticCard, DiagnosticList } from './product-panels.jsx';
 

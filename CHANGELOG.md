@@ -4,6 +4,21 @@ Notable changes to CCI Admin UI and its five versioned packages are recorded her
 All packages share the same release version. Record implemented changes under
 the matching package version. Planned work belongs in issues.
 
+## 1.0.2
+
+### Added
+
+- Shared administration sidebar surface with optional panel framing and themed scrolling. Add compact metric cards and semantic warning, information and danger icons without changing existing defaults.
+- Optional soft status badges with sentence case, semibold labels, compact corners and defined borders. Semantic tinted surfaces use the CCI brand and existing state text colors; existing publication badges keep their default appearance.
+
+### Fixed
+
+- Keep select menus in the trigger's nearest CCI shell or native dialog by default, preserving typography and theme styles while retaining explicit portal-container overrides.
+- Allow shared tooltips to render inside a supplied portal container, keeping contextual help visible above native modal dialogs.
+- Keep nested deletion confirmations in their parent dialog when a portal container is supplied, and display request errors inside the confirmation.
+- Reset all padding and prevent flex shrinking for small icon buttons, including native buttons and summary-based menu triggers.
+- Allow shared select menus to render inside a supplied portal container so they remain visible and interactive in native modal dialogs.
+
 ## 1.0.1
 
 ### Documentation

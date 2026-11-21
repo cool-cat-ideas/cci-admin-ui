@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from './cn.js';
@@ -17,10 +17,19 @@ export function createSelect(themeName = 'niceMenu') {
     className = '',
     invalid = false,
     ariaLabel,
+    portalContainer,
   }) {
+    const trigger = useRef(null);
+    const [open, setOpen] = useState(false);
+    // Resolve when opening, after the trigger is mounted. Native dialogs must
+    // contain their own portals; other menus inherit their nearest CCI shell.
+    const inheritedPortalContainer = trigger.current?.closest(
+      'dialog, .cci-admin-layout-shell, .cci-wpc-admin-shell, .cci-cookie-consent-admin-shell'
+    );
     return (
-      <SelectPrimitive.Root value={value} onValueChange={onValueChange} disabled={disabled}>
+      <SelectPrimitive.Root value={value} onValueChange={onValueChange} disabled={disabled} open={open} onOpenChange={setOpen}>
         <SelectPrimitive.Trigger
+          ref={trigger}
           id={id}
           className={cn(
             `!tw-m-0 !tw-box-border !tw-appearance-none tw-flex !tw-h-10 tw-min-h-10 tw-min-w-0 tw-w-full tw-items-center tw-justify-between tw-gap-2 !tw-rounded-md !tw-border tw-border-solid ${theme.borderImportant} !tw-bg-white tw-px-3 tw-text-sm tw-leading-none ${theme.textImportant} !tw-shadow-none !tw-outline-none tw-transition-colors tw-duration-150`,
@@ -41,7 +50,7 @@ export function createSelect(themeName = 'niceMenu') {
             <ChevronDown aria-hidden='true' className={`tw-h-4 tw-w-4 tw-shrink-0 ${theme.textMuted}`} />
           </SelectPrimitive.Icon>
         </SelectPrimitive.Trigger>
-        <SelectPrimitive.Portal>
+        <SelectPrimitive.Portal container={portalContainer || inheritedPortalContainer || undefined}>
           <SelectPrimitive.Content
             className={`tw-z-[100000] tw-max-h-[var(--radix-select-content-available-height)] tw-max-w-[var(--radix-select-content-available-width)] tw-min-w-[var(--radix-select-trigger-width)] tw-overflow-hidden tw-rounded-md tw-border tw-border-solid ${theme.border} tw-bg-white tw-text-sm ${theme.text} tw-shadow-md`}
             position='popper'
